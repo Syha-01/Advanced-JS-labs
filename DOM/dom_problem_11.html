@@ -88,6 +88,11 @@
 
   <script>
     // Write your JavaScript code here
+    const parent = document.getElementById('parent');
+    const children = parent.children;
+    for (let i = 0; i < children.length; i++) {
+      children[i].classList.add('child-item');
+    }
 
   </script>
 </body>
