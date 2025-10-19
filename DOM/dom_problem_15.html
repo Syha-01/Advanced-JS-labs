@@ -82,6 +82,12 @@
 
   <script>
     // Write your JavaScript code here
+    const todoList = document.getElementById('todoList');
+    for (let i = 1; i <= 3; i++) {
+      const listItem = document.createElement('li');
+      listItem.textContent = `Item ${i}`;
+      todoList.appendChild(listItem);
+    }
 
   </script>
 </body>
