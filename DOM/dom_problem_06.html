@@ -81,11 +81,24 @@
   <script>
     // Write your JavaScript code here
     const target = document.getElementById('target');
-    const previousSibling = target.previousElementSibling;
-    const nextSibling = target.nextElementSibling;
+    if (target) {
+      const previousSibling = target.previousElementSibling;
+      const nextSibling = target.nextElementSibling;
 
-    previousSibling.style.color = 'blue';
-    nextSibling.style.color = 'green';
+      if (previousSibling) {
+        previousSibling.style.color = 'blue';
+      } else {
+        console.log('Previous sibling of element with id "target" not found.');
+      }
+
+      if (nextSibling) {
+        nextSibling.style.color = 'green';
+      } else {
+        console.log('Next sibling of element with id "target" not found.');
+      }
+    } else {
+      console.log('Element with id "target" not found.');
+    }
 
   </script>
 </body>

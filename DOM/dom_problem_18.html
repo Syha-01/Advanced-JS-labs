@@ -83,15 +83,19 @@
   <script>
     // Write your JavaScript code here
     const gallery = document.getElementById('gallery');
-    const img = document.createElement('img');
+    if (gallery) {
+      const img = document.createElement('img');
 
-    img.src = 'https://via.placeholder.com/150';
-    //Above image does not work so I added one that works for testing only
-    // img.src = 'https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=';
+      img.src = 'https://via.placeholder.com/150';
+      //Above image does not work so I added one that works for testing only
+      // img.src = 'https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=';
 
-    img.alt = 'Placeholder';
-    img.width = '150';
-    gallery.appendChild(img);
+      img.alt = 'Placeholder';
+      img.width = '150';
+      gallery.appendChild(img);
+    } else {
+      console.log('Element with id "gallery" not found.');
+    }
   </script>
 </body>
 </html>

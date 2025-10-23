@@ -87,8 +87,16 @@
   <script>
     // Write your JavaScript code here
     const button = document.getElementById('myBtn');
-    const parent = button.parentElement;
-    parent.classList.add('btn-container');
+    if (button) {
+      const parent = button.parentElement;
+      if (parent) {
+        parent.classList.add('btn-container');
+      } else {
+        console.log('Parent of element with id "myBtn" not found.');
+      }
+    } else {
+      console.log('Element with id "myBtn" not found.');
+    }
 
   </script>
 </body>

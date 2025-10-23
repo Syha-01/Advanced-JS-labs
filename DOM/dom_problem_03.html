@@ -90,9 +90,13 @@
   <script>
     // Write your JavaScript code here
     const listItems = document.querySelectorAll('li');
-    listItems.forEach(item => {
-      item.classList.add('list-item');
-    });
+    if (listItems.length > 0) {
+      listItems.forEach(item => {
+        item.classList.add('list-item');
+      });
+    } else {
+      console.log('No <li> elements found.');
+    }
 
   </script>
 </body>

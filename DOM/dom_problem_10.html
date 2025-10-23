@@ -87,8 +87,16 @@
   <script>
     // Write your JavaScript code here
     const myList = document.getElementById('myList');
-    const firstChild = myList.firstElementChild;
-    firstChild.textContent = 'First Item (Modified)';
+    if (myList) {
+      const firstChild = myList.firstElementChild;
+      if (firstChild) {
+        firstChild.textContent = 'First Item (Modified)';
+      } else {
+        console.log('First child of element with id "myList" not found.');
+      }
+    } else {
+      console.log('Element with id "myList" not found.');
+    }
 
   </script>
 </body>

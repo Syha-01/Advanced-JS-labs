@@ -81,8 +81,21 @@
   <script>
     // Write your JavaScript code here
     const child = document.getElementById('child');
-    const grandParentElement = child.parentElement.parentElement;
-    grandParentElement.style.border = '2px solid orange';
+    if (child) {
+      const parentElement = child.parentElement;
+      if (parentElement) {
+        const grandParentElement = parentElement.parentElement;
+        if (grandParentElement) {
+          grandParentElement.style.border = '2px solid orange';
+        } else {
+          console.log('Grandparent of element with id "child" not found.');
+        }
+      } else {
+        console.log('Parent of element with id "child" not found.');
+      }
+    } else {
+      console.log('Element with id "child" not found.');
+    }
 
   </script>
 </body>

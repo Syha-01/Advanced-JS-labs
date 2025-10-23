@@ -84,11 +84,15 @@
   <script>
     // Write your JavaScript code here
     const container = document.getElementById('container');
-    const card = document.createElement('div');
-    card.id = 'card';
-    card.className = 'product-card';
-    card.textContent = 'Product Name';
-    container.appendChild(card);
+    if (container) {
+      const card = document.createElement('div');
+      card.id = 'card';
+      card.className = 'product-card';
+      card.textContent = 'Product Name';
+      container.appendChild(card);
+    } else {
+      console.log('Element with id "container" not found.');
+    }
 
   </script>
 </body>

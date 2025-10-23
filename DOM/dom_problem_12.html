@@ -87,10 +87,18 @@
   <script>
     // Write your JavaScript code here
     const content = document.getElementById('content');
-    const paragraphs = content.querySelectorAll('p');
-    paragraphs.forEach(p => {
-      p.style.color = 'purple';
-    });
+    if (content) {
+      const paragraphs = content.querySelectorAll('p');
+      if (paragraphs.length > 0) {
+        paragraphs.forEach(p => {
+          p.style.color = 'purple';
+        });
+      } else {
+        console.log('No <p> elements found within element with id "content".');
+      }
+    } else {
+      console.log('Element with id "content" not found.');
+    }
 
   </script>
 </body>

@@ -80,8 +80,16 @@
   <script>
     // Write your JavaScript code here
     const middle = document.querySelector('.middle');
-    const previousSibling = middle.previousElementSibling;
-    previousSibling.style.border = '3px solid red';
+    if (middle) {
+      const previousSibling = middle.previousElementSibling;
+      if (previousSibling) {
+        previousSibling.style.border = '3px solid red';
+      } else {
+        console.log('Previous sibling of element with class "middle" not found.');
+      }
+    } else {
+      console.log('Element with class "middle" not found.');
+    }
 
   </script>
 </body>

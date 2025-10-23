@@ -88,19 +88,23 @@
   <script>
     // Write your JavaScript code here
     const cardsContainer = document.getElementById('cards');
-    const card = document.createElement('div');
-    card.className = 'card';
+    if (cardsContainer) {
+      const card = document.createElement('div');
+      card.className = 'card';
 
-    const title = document.createElement('h3');
-    title.textContent = 'Title';
+      const title = document.createElement('h3');
+      title.textContent = 'Title';
 
-    const description = document.createElement('p');
-    description.textContent = 'Description';
+      const description = document.createElement('p');
+      description.textContent = 'Description';
 
-    card.appendChild(title);
-    card.appendChild(description);
+      card.appendChild(title);
+      card.appendChild(description);
 
-    cardsContainer.appendChild(card);
+      cardsContainer.appendChild(card);
+    } else {
+      console.log('Element with id "cards" not found.');
+    }
 
   </script>
 </body>

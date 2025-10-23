@@ -88,17 +88,21 @@
   <script>
     // Write your JavaScript code here
     const tableBody = document.getElementById('tableBody');
-    const row = document.createElement('tr');
-    const cell1 = document.createElement('td');
-    cell1.textContent = 'Name';
-    const cell2 = document.createElement('td');
-    cell2.textContent = 'Age';
-    const cell3 = document.createElement('td');
-    cell3.textContent = 'City';
-    row.appendChild(cell1);
-    row.appendChild(cell2);
-    row.appendChild(cell3);
-    tableBody.appendChild(row);
+    if (tableBody) {
+      const row = document.createElement('tr');
+      const cell1 = document.createElement('td');
+      cell1.textContent = 'Name';
+      const cell2 = document.createElement('td');
+      cell2.textContent = 'Age';
+      const cell3 = document.createElement('td');
+      cell3.textContent = 'City';
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      row.appendChild(cell3);
+      tableBody.appendChild(row);
+    } else {
+      console.log('Element with id "tableBody" not found.');
+    }
 
   </script>
 </body>

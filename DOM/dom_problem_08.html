@@ -83,8 +83,16 @@
   <script>
     // Write your JavaScript code here
     const deepSpan = document.getElementById('deep');
-    const closestContainer = deepSpan.closest('.container');
-    closestContainer.style.backgroundColor = 'lightblue';
+    if (deepSpan) {
+      const closestContainer = deepSpan.closest('.container');
+      if (closestContainer) {
+        closestContainer.style.backgroundColor = 'lightblue';
+      } else {
+        console.log('Closest ancestor with class "container" not found for element with id "deep".');
+      }
+    } else {
+      console.log('Element with id "deep" not found.');
+    }
 
   </script>
 </body>

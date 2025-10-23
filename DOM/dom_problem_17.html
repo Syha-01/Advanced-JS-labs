@@ -84,14 +84,17 @@
     <script>
       // Write your JavaScript code here
       const btnContainer = document.getElementById("btnContainer");
+      if (btnContainer) {
+        const button = document.createElement("button");
+        button.id = "myButton";
 
-      const button = document.createElement("button");
-      button.id = "myButton";
+        button.textContent = "Click Me!";
+        button.style.cssText = "background-color: blue; color: white; padding: 10px 20px;";
 
-      button.textContent = "Click Me!";
-      button.style.cssText = "background-color: blue; color: white; padding: 10px 20px;";
-
-      btnContainer.appendChild(button);
+        btnContainer.appendChild(button);
+      } else {
+        console.log('Element with id "btnContainer" not found.');
+      }
 
 
     </script>

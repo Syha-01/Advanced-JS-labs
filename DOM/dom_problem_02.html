@@ -79,9 +79,13 @@
   <script>
     // Write your JavaScript code here
     const paragraphs = document.querySelectorAll('.highlight');
-    paragraphs.forEach(element => {
-      element.style.backgroundColor = 'yellow';
-    });
+    if (paragraphs.length > 0) {
+      paragraphs.forEach(element => {
+        element.style.backgroundColor = 'yellow';
+      });
+    } else {
+      console.log('No elements with class "highlight" found.');
+    }
 
   </script>
 </body>

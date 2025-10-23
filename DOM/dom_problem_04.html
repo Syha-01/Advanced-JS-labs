@@ -81,8 +81,16 @@
   <script>
     // Write your JavaScript code here
     const secondItem = document.getElementById('second');
-    const thirdItem = secondItem.nextElementSibling;
-    thirdItem.textContent = 'I\'m the third item!';
+    if (secondItem) {
+      const thirdItem = secondItem.nextElementSibling;
+      if (thirdItem) {
+        thirdItem.textContent = 'I\'m the third item!';
+      } else {
+        console.log('Next sibling of element with id "second" not found.');
+      }
+    } else {
+      console.log('Element with id "second" not found.');
+    }
 
   </script>
 </body>
