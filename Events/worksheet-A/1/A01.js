@@ -11,5 +11,5 @@ if (btn) {
         console.log(e.type);
     });
 } else {
-    console.error("Button with id 'btn1' not found.");
+    console.log("Button with id 'btn1' not found.");
 }
