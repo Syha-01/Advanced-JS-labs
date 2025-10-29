@@ -11,3 +11,15 @@ const displayBox = document.getElementById('display-box');
 // HINT: Set displayBox.style.backgroundColor to the color
 
 // Your code here:
+colorContainer.addEventListener('click', (event) => {
+    // Find the closest color-card parent
+    const colorCard = event.target.closest('.color-card');
+
+    // If a color card was clicked
+    if (colorCard) {
+        // Get the color from the data-color attribute
+        const color = colorCard.getAttribute('data-color');
+        // Change the display box background color
+        displayBox.style.backgroundColor = color;
+    }
+});

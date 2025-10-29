@@ -16,7 +16,49 @@ const submitBtn = document.getElementById('submit-btn');
 // HINT: Enable submit button only when all inputs are valid
 
 // Your code here:
+function checkFormValidity() {
+    const inputs = form.querySelectorAll('.form-input');
+    let allValid = true;
+    inputs.forEach(input => {
+        if (!input.classList.contains('valid')) {
+            allValid = false;
+        }
+    });
+    submitBtn.disabled = !allValid;
+}
 
+form.addEventListener('input', (event) => {
+    const input = event.target;
+    if (input.classList.contains('form-input')) {
+        const errorMessage = input.nextElementSibling;
+        let isValid = false;
+
+        switch (input.name) {
+            case 'username':
+                isValid = input.value.length >= 5;
+                errorMessage.textContent = isValid ? '' : 'Username must be at least 5 characters.';
+                break;
+            case 'email':
+                isValid = input.value.includes('@');
+                errorMessage.textContent = isValid ? '' : 'Please enter a valid email.';
+                break;
+            case 'password':
+                isValid = input.value.length >= 8;
+                errorMessage.textContent = isValid ? '' : 'Password must be at least 8 characters.';
+                break;
+        }
+
+        if (isValid) {
+            input.classList.add('valid');
+            input.classList.remove('invalid');
+        } else {
+            input.classList.add('invalid');
+            input.classList.remove('valid');
+        }
+
+        checkFormValidity();
+    }
+});
 
 // TODO: Add submit event listener to prevent default form submission
 form.addEventListener('submit', (e) => {

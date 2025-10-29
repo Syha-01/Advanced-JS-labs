@@ -14,7 +14,21 @@ let cart = []; // Array to store cart items: {name, price, quantity}
 // HINT: Call updateCartDisplay() after modifying cart
 
 // Your code here for Part 1:
+productList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('add-to-cart')) {
+        const product = event.target.closest('.product');
+        const name = product.dataset.name;
+        const price = parseFloat(product.dataset.price);
 
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({ name, price, quantity: 1 });
+        }
+        updateCartDisplay();
+    }
+});
 
 // TODO Part 2: Handle cart actions (increase, decrease, remove) using event delegation on cartItems
 // HINT: Use data-name attribute to identify which item was clicked
@@ -24,7 +38,26 @@ let cart = []; // Array to store cart items: {name, price, quantity}
 // HINT: Call updateCartDisplay() after each action
 
 // Your code here for Part 2:
+cartItems.addEventListener('click', (event) => {
+    const target = event.target;
+    const cartItem = target.closest('.cart-item');
+    if (!cartItem) return;
 
+    const name = cartItem.dataset.name;
+    const itemInCart = cart.find(item => item.name === name);
+
+    if (target.classList.contains('increase-qty')) {
+        itemInCart.quantity++;
+    } else if (target.classList.contains('decrease-qty')) {
+        itemInCart.quantity--;
+        if (itemInCart.quantity <= 0) {
+            cart = cart.filter(item => item.name !== name);
+        }
+    } else if (target.classList.contains('remove-item')) {
+        cart = cart.filter(item => item.name !== name);
+    }
+    updateCartDisplay();
+});
 
 // TODO Part 3: Create updateCartDisplay() function
 // HINT: Clear cartItems innerHTML
@@ -34,6 +67,23 @@ let cart = []; // Array to store cart items: {name, price, quantity}
 // HINT: Update totalPriceDisplay
 
 function updateCartDisplay() {
-    // Your code here:
-    
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.dataset.name = item.name;
+        itemEl.innerHTML = `
+            <span>${item.name} ($${item.price})</span>
+            <div class="quantity-controls">
+                <button class="decrease-qty">-</button>
+                <span>${item.quantity}</span>
+                <button class="increase-qty">+</button>
+            </div>
+            <button class="remove-item">Remove</button>
+        `;
+        cartItems.appendChild(itemEl);
+    });
+    totalPriceDisplay.textContent = total.toFixed(2);
 }

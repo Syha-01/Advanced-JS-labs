@@ -14,3 +14,12 @@ let clickCount = 0;
 // HINT: Update the clickCountDisplay.textContent with the new count
 
 // Your code here:
+buttonContainer.addEventListener('click', (event) => {
+    // Check if the clicked element is a button
+    if (event.target.tagName === 'BUTTON') {
+        // Increment the counter
+        clickCount++;
+        // Update the display
+        clickCountDisplay.textContent = clickCount;
+    }
+});

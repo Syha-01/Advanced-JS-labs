@@ -9,3 +9,14 @@ const itemList = document.getElementById('item-list');
 // HINT: Use .remove() to delete the item from the DOM
 
 // Your code here:
+itemList.addEventListener('click', (event) => {
+    // Check if the clicked element is a delete button
+    if (event.target.classList.contains('delete-btn')) {
+        // Find the parent list item (.item)
+        const item = event.target.closest('.item');
+        // If an item is found, remove it
+        if (item) {
+            item.remove();
+        }
+    }
+});

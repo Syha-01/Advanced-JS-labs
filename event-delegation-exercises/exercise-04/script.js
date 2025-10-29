@@ -9,3 +9,12 @@ const cardContainer = document.getElementById('card-container');
 // HINT: Toggle means: if class exists, remove it; if it doesn't exist, add it
 
 // Your code here:
+cardContainer.addEventListener('click', (event) => {
+    // Find the closest card element
+    const card = event.target.closest('.card');
+
+    // If a card was clicked, toggle its active state
+    if (card) {
+        card.classList.toggle('active');
+    }
+});

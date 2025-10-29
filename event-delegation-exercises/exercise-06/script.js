@@ -18,3 +18,31 @@ let deleteCount = 0;
 // HINT: Use e.target.closest('.card') to get the card element
 
 // Your code here:
+cardContainer.addEventListener('click', (event) => {
+    const target = event.target;
+    const card = target.closest('.card');
+
+    if (!card) return; // Exit if the click was not inside a card
+
+    // Handle 'Like' button
+    if (target.classList.contains('btn-like')) {
+        likeCount++;
+        likeCountDisplay.textContent = likeCount;
+        card.classList.toggle('liked');
+    }
+
+    // Handle 'Edit' button
+    if (target.classList.contains('btn-edit')) {
+        editCount++;
+        editCountDisplay.textContent = editCount;
+        const postTitle = card.querySelector('h3').textContent;
+        alert(`Editing "${postTitle}"`);
+    }
+
+    // Handle 'Delete' button
+    if (target.classList.contains('btn-delete')) {
+        deleteCount++;
+        deleteCountDisplay.textContent = deleteCount;
+        card.remove();
+    }
+});

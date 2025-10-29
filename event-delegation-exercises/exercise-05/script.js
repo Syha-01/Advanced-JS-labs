@@ -16,7 +16,19 @@ const addBtn = document.getElementById('add-btn');
 // HINT: Clear the input after adding
 
 // Your code here for Part 1:
-
+addBtn.addEventListener('click', () => {
+    const text = itemInput.value.trim();
+    if (text !== '') {
+        const newItem = document.createElement('li');
+        newItem.className = 'item';
+        newItem.innerHTML = `
+            <span>${text}</span>
+            <button class="delete-btn">×</button>
+        `;
+        itemList.appendChild(newItem);
+        itemInput.value = '';
+    }
+});
 
 // TODO Part 2: Add ONE event listener to itemList for deleting items
 // HINT: This should work for both existing items AND newly added items
@@ -24,3 +36,11 @@ const addBtn = document.getElementById('add-btn');
 // HINT: Remove the parent item element
 
 // Your code here for Part 2:
+itemList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete-btn')) {
+        const item = event.target.closest('.item');
+        if (item) {
+            item.remove();
+        }
+    }
+});
