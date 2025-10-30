@@ -10,3 +10,17 @@ let totalClicks = 0;
 // HINT: Update the count span inside the clicked box
 
 // Your code here:
+boxContainer.addEventListener('click', (event) => {
+    const box = event.target.closest('.box');
+    if (box) {
+        // Increment total clicks
+        totalClicks++;
+        totalDisplay.textContent = totalClicks;
+
+        // Increment box-specific count
+        const countSpan = box.querySelector('.count');
+        let currentCount = parseInt(countSpan.textContent, 10);
+        currentCount++;
+        countSpan.textContent = currentCount;
+    }
+});

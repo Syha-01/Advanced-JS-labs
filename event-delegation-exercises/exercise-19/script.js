@@ -22,7 +22,42 @@ let canClick = true;
 // HINT: Increment attempts after each pair check
 
 // Your code here:
+function checkMatch() {
+    attempts++;
+    attemptsDisplay.textContent = attempts;
+    canClick = false;
 
+    const [card1, card2] = flippedCards;
+    if (card1.dataset.color === card2.dataset.color) {
+        matches++;
+        matchesDisplay.textContent = matches;
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        flippedCards = [];
+        canClick = true;
+    } else {
+        setTimeout(() => {
+            card1.classList.remove('revealed');
+            card2.classList.remove('revealed');
+            flippedCards = [];
+            canClick = true;
+        }, 1000);
+    }
+}
+
+gameBoard.addEventListener('click', (event) => {
+    const card = event.target;
+    if (!canClick || !card.classList.contains('game-card') || card.classList.contains('revealed')) {
+        return;
+    }
+
+    card.classList.add('revealed');
+    flippedCards.push(card);
+
+    if (flippedCards.length === 2) {
+        checkMatch();
+    }
+});
 
 resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.game-card').forEach(card => {

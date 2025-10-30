@@ -11,3 +11,20 @@ const accordion = document.getElementById('accordion');
 // HINT: If clicking the already-active item, just remove active from all
 
 // Your code here:
+accordion.addEventListener('click', (event) => {
+    const header = event.target.closest('.accordion-header');
+    if (!header) return;
+
+    const clickedItem = header.parentElement;
+    const wasActive = clickedItem.classList.contains('active');
+
+    // Close all items
+    document.querySelectorAll('.accordion-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // If the clicked item wasn't already active, open it
+    if (!wasActive) {
+        clickedItem.classList.add('active');
+    }
+});

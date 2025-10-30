@@ -43,3 +43,95 @@ let gameStarted = false;
 // HINT: Remove flipped and matched classes
 
 // Your code here:
+function startGame() {
+    // Reset state
+    flippedCards = [];
+    matchedPairs = 0;
+    moves = 0;
+    timer = 0;
+    canClick = true;
+    gameStarted = false;
+
+    // Reset displays
+    movesDisplay.textContent = moves;
+    pairsDisplay.textContent = `${matchedPairs}/6`;
+    timerDisplay.textContent = timer;
+    winMessage.textContent = '';
+    winMessage.style.display = 'none';
+
+    // Stop timer if running
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    // Shuffle cards
+    const cards = Array.from(gameBoard.children);
+    cards.forEach(card => {
+        card.classList.remove('flipped', 'matched');
+        const randomPos = Math.floor(Math.random() * 12);
+        card.style.order = randomPos;
+    });
+}
+
+function startTimer() {
+    gameStarted = true;
+    timerInterval = setInterval(() => {
+        timer++;
+        timerDisplay.textContent = timer;
+    }, 1000);
+}
+
+function checkForMatch() {
+    canClick = false;
+    const [card1, card2] = flippedCards;
+
+    if (card1.dataset.symbol === card2.dataset.symbol) {
+        // It's a match
+        matchedPairs++;
+        pairsDisplay.textContent = `${matchedPairs}/6`;
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        flippedCards = [];
+        canClick = true;
+        if (matchedPairs === 6) {
+            clearInterval(timerInterval);
+            winMessage.textContent = `You won in ${timer} seconds with ${moves} moves!`;
+            winMessage.style.display = 'block';
+        }
+    } else {
+        // Not a match
+        setTimeout(() => {
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            flippedCards = [];
+            canClick = true;
+        }, 1000);
+    }
+}
+
+gameBoard.addEventListener('click', (event) => {
+    const card = event.target.closest('.memory-card');
+
+    if (!card || !canClick || card.classList.contains('flipped')) {
+        return;
+    }
+
+    if (!gameStarted) {
+        startTimer();
+    }
+
+    card.classList.add('flipped');
+    flippedCards.push(card);
+
+    if (flippedCards.length === 2) {
+        moves++;
+        movesDisplay.textContent = moves;
+        checkForMatch();
+    }
+});
+
+newGameBtn.addEventListener('click', startGame);
+
+// Initial game setup
+startGame();

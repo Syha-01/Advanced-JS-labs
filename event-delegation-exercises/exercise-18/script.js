@@ -12,3 +12,36 @@ const board = document.querySelector('.board');
 // HINT: Update buttons on card based on new position
 
 // Your code here:
+function updateCardButtons(card, columnStatus) {
+    // Clear existing buttons
+    card.querySelectorAll('.move-btn').forEach(btn => btn.remove());
+
+    if (columnStatus === 'todo') {
+        card.innerHTML += '<button class="move-btn" data-direction="right">→</button>';
+    } else if (columnStatus === 'in-progress') {
+        card.innerHTML += '<button class="move-btn" data-direction="left">←</button><button class="move-btn" data-direction="right">→</button>';
+    } else if (columnStatus === 'done') {
+        card.innerHTML += '<button class="move-btn" data-direction="left">←</button>';
+    }
+}
+
+board.addEventListener('click', (event) => {
+    if (event.target.classList.contains('move-btn')) {
+        const button = event.target;
+        const card = button.closest('.card');
+        const direction = button.dataset.direction;
+        const currentColumn = card.closest('.column');
+
+        let targetColumn;
+        if (direction === 'right') {
+            targetColumn = currentColumn.nextElementSibling;
+        } else {
+            targetColumn = currentColumn.previousElementSibling;
+        }
+
+        if (targetColumn) {
+            targetColumn.querySelector('.cards').appendChild(card);
+            updateCardButtons(card, targetColumn.dataset.status);
+        }
+    }
+});

@@ -13,8 +13,26 @@ const addBtn = document.getElementById('add-btn');
 // HINT: Append to that category's .todo-list
 
 addBtn.addEventListener('click', () => {
-    // Your code here:
-    
+    const text = todoInput.value.trim();
+    const category = categorySelect.value;
+
+    if (text === '') return;
+
+    const targetList = document.querySelector(`.category[data-category="${category}"] .todo-list`);
+
+    if (targetList) {
+        const todoItem = document.createElement('li');
+        todoItem.className = 'todo-item';
+        todoItem.innerHTML = `
+            <span>${text}</span>
+            <div class="todo-actions">
+                <button class="complete-btn">✓</button>
+                <button class="delete-btn">✗</button>
+            </div>
+        `;
+        targetList.appendChild(todoItem);
+        todoInput.value = '';
+    }
 });
 
 // TODO Part 2: Handle todo actions using event delegation on todoContainer
@@ -23,3 +41,15 @@ addBtn.addEventListener('click', () => {
 // HINT: If delete-btn clicked: remove the parent .todo-item
 
 // Your code here:
+todoContainer.addEventListener('click', (event) => {
+    const target = event.target;
+    const todoItem = target.closest('.todo-item');
+
+    if (!todoItem) return;
+
+    if (target.classList.contains('complete-btn')) {
+        todoItem.classList.toggle('completed');
+    } else if (target.classList.contains('delete-btn')) {
+        todoItem.remove();
+    }
+});
