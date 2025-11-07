@@ -4,36 +4,44 @@
 // TODO 1: Create a state object with 'celsius' property
 // HINT: Start with 0 as the default value
 const state = {
-    // Your code here
+    celsius: 0
 };
 
 // TODO 2: Create an updateState function
 function updateState(changes) {
-    // Your code here
+    Object.assign(state, changes);
+    render();
 }
 
 // TODO 3: Create a render function
-// HINT: 
+// HINT:
 // - Calculate fahrenheit from celsius: (celsius * 9/5) + 32
 // - Display both temperatures with 1 decimal place using .toFixed(1)
 // - Update the input value to match state.celsius
 function render() {
     // Calculate fahrenheit
-    // Your code here
-    
+    const fahrenheit = (state.celsius * 9/5) + 32;
+
     // Update display
-    // Your code here
-    
+    const display = document.getElementById('display');
+    display.textContent = `${state.celsius.toFixed(1)}°C = ${fahrenheit.toFixed(1)}°F`;
+
     // Update input value
-    // Your code here
+    const input = document.getElementById('celsius-input');
+    if (document.activeElement !== input) {
+        input.value = state.celsius;
+    }
 }
 
 // TODO 4: Add event listener to the input field
-// HINT: 
+// HINT:
 // - Use 'input' event for real-time updates
 // - Get the value with: parseFloat(input.value) || 0
 // - Call updateState with the new celsius value
-// Your code here
+document.getElementById('celsius-input').addEventListener('input', (event) => {
+    const newCelsius = parseFloat(event.target.value) || 0;
+    updateState({ celsius: newCelsius });
+});
 
 // TODO 5: Call render() initially
-// Your code here
+render();

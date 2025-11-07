@@ -4,12 +4,17 @@
 // TODO 1: Create a state object with form fields and validation state
 // HINT: Include username, email, age (all empty strings), errors (empty object), isValid (false)
 const state = {
-    // Your code here
+    username: '',
+    email: '',
+    age: '',
+    errors: {},
+    isValid: false
 };
 
 // TODO 2: Create an updateState function
 function updateState(changes) {
-    // Your code here
+    Object.assign(state, changes);
+    render();
 }
 
 // TODO 3: Create a validate function that returns an errors object
@@ -17,21 +22,28 @@ function updateState(changes) {
 // Return the errors object
 function validate() {
     const errors = {};
-    
+
     // Validate username (at least 3 characters)
-    // Your code here
-    
+    if (state.username.length < 3) {
+        errors.username = 'Username must be at least 3 characters';
+    }
+
     // Validate email (must contain @)
-    // Your code here
-    
+    if (!state.email.includes('@')) {
+        errors.email = 'Please enter a valid email';
+    }
+
     // Validate age (between 13 and 120)
-    // Your code here
-    
+    const ageNum = parseInt(state.age);
+    if (isNaN(ageNum) || ageNum < 13 || ageNum > 120) {
+        errors.age = 'Age must be between 13 and 120';
+    }
+
     return errors;
 }
 
 // TODO 4: Create a render function
-// HINT: 
+// HINT:
 // - Update each input's value from state
 // - Display errors for each field
 // - Add 'invalid' or 'valid' class to inputs
@@ -39,16 +51,37 @@ function validate() {
 // - Show profile summary if valid
 function render() {
     // Update input values
-    // Your code here
-    
+    document.getElementById('username').value = state.username;
+    document.getElementById('email').value = state.email;
+    document.getElementById('age').value = state.age;
+
     // Display errors
-    // Your code here
-    
+    document.getElementById('username-error').textContent = state.errors.username || '';
+    document.getElementById('email-error').textContent = state.errors.email || '';
+    document.getElementById('age-error').textContent = state.errors.age || '';
+
     // Update input classes (invalid/valid)
-    // Your code here
-    
+    document.getElementById('username').className = state.errors.username ? 'invalid' : 'valid';
+    document.getElementById('email').className = state.errors.email ? 'invalid' : 'valid';
+    document.getElementById('age').className = state.errors.age ? 'invalid' : 'valid';
+
     // Display validation status
-    // Your code here
+    const status = document.getElementById('validation-status');
+    const summary = document.getElementById('profile-summary');
+    if (state.isValid) {
+        status.textContent = '✅ Profile is valid!';
+        status.className = 'success';
+        summary.innerHTML = `
+            <h3>Profile Summary</h3>
+            <p><strong>Username:</strong> ${state.username}</p>
+            <p><strong>Email:</strong> ${state.email}</p>
+            <p><strong>Age:</strong> ${state.age}</p>
+        `;
+    } else {
+        status.textContent = '❌ Please fix the errors above';
+        status.className = 'error';
+        summary.innerHTML = '';
+    }
 }
 
 // TODO 5: Add event listeners to all input fields
@@ -58,14 +91,22 @@ function render() {
 // - Check if valid (no errors)
 // - Update state with new value, errors, and isValid
 
+function handleInputChange(event) {
+    const { name, value } = event.target;
+    state[name] = value; // Temporarily update state to validate
+    const errors = validate();
+    const isValid = Object.keys(errors).length === 0;
+    updateState({ [name]: value, errors, isValid });
+}
+
 // Username input
-// Your code here
+document.getElementById('username').addEventListener('input', handleInputChange);
 
 // Email input
-// Your code here
+document.getElementById('email').addEventListener('input', handleInputChange);
 
 // Age input
-// Your code here
+document.getElementById('age').addEventListener('input', handleInputChange);
 
 // TODO 6: Call render() initially
-// Your code here
+render();
